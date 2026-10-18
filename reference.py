@@ -81,6 +81,9 @@ def upstream_out_runner(module, cache, indices, out):
     groups = nope // 128
     flat = cache.view(-1, cache.shape[-1])
     q = flat[:, :nope]
+    # sm86 Triton adaptation loads the FP8 payload as raw uint8 bytes.
+    if getattr(module, "UINT8_NOPE_INPUT", False):
+        q = flat.view(torch.uint8)[:, :nope]
     s = flat[:, nope:nope + 4 * groups].view(torch.float32)
     r = flat[:, nope + 4 * groups:].view(torch.bfloat16)
     grid = (indices.numel(), groups + (rope + 127) // 128)

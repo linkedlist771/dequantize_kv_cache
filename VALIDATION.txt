@@ -1,10 +1,25 @@
-PASS: AST parse (6 Python files)
+PASS: AST parse (8 Python files)
 PASS: 254 finite E4M3 encodings are exactly representable in FP16
 PASS: address model (102 vector/layout cases, 22 row schedules)
-NOT CHECKED: CUDA compilation, GPU memory safety, numerical GPU parity, performance
 PASS: separate dimension-inference comparison against pinned upstream for widths 1..9999
 
-Environment: no torch/triton in either available Python runtime; no nvcc or nvidia-smi.
-CUDA build: NOT RUN
-GPU correctness/memcheck: NOT RUN
-CUDA vs Triton benchmark: NOT RUN
+Executed 2026-10-18/19 on NVIDIA GeForce RTX 3070 Ti Laptop GPU (sm 8.6),
+torch 2.11.0+cu130, CUDA toolkit 13.0 (nvcc), triton 3.6.0, python 3.13.5.
+Final kernel: 40 registers, 0 spills, 100% occupancy (8-warp CTAs).
+
+CUDA build: PASS (torch.utils.cpp_extension JIT, -O3, --ftz=false --fmad=false)
+GPU correctness: PASS
+  python validate.py --upstream-file upstream_sm86.py
+  -> "PASS: 930 CUDA variants + dtype codes + stream/graph + invalid-index checks"
+  -> "Triton comparison: PASS"
+  (covers NoPE/RoPE layouts incl. padding, int32/int64, out-of-order/duplicate
+  indices, all 256 FP8 encodings, non-power-of-two scales, vec 4/8/16,
+  warps 0/4/8, non-default stream, CUDA Graph replay, large-N launches)
+CUDA vs Triton benchmark: RUN, see results_dsa_optimized.csv and README.
+
+Note on the Triton side: the pinned upstream kernel cannot compile on sm86
+(Triton raises "type fp8e4nv not supported in this architecture"; FP8E4M3
+needs sm89+). The comparison uses upstream_sm86.py, the same kernel with the
+FP8 load replaced by a uint8 load plus an exact software E4M3->FP32 decode;
+everything else (grid, masks, scales, RoPE copy, rounding) is unchanged.
+Both sides use a software FP8 decode on this GPU.

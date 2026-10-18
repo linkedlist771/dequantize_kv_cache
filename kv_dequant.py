@@ -41,7 +41,7 @@ def dequantize_k_cache_paged(
     *,
     out: torch.Tensor | None = None,
     vec: int = 0,
-    warps: int = 4,
+    warps: int = 0,
     check_indices: bool = False,
 ) -> torch.Tensor:
     """Gather token slots, scale E4M3 per 128 elements, and copy BF16 RoPE.
@@ -51,7 +51,7 @@ def dequantize_k_cache_paged(
     indices: [N], CUDA int32/int64, flattened TOKEN SLOT indices.
     out: optional contiguous [N, 1, nope + rope] BF16 buffer.
     vec: FP8 elements/thread/load, 0 chooses an alignment-safe default.
-    warps: 4 or 8 tokens per CTA; one warp processes one token.
+    warps: tokens per CTA; 0 (auto) uses 8, or pass 4/8 to compare.
     check_indices: debug-only bounds validation; synchronizes the host.
 
     With check_indices=False indices MUST be in [0, slots); -1 is not a

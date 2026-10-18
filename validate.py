@@ -54,6 +54,15 @@ def main():
             baseline = upstream.dequantize_k_cache_paged(cache, ids)
             assert_matches(baseline, expected, 512)
 
+    # Large-N launch (multi-MiB streaming working set) with auto and explicit
+    # CTA sizes.
+    cache = make_cache(8192, 512, 64)
+    ids = torch.randint(0, 8192, (6000,), device="cuda", dtype=torch.int64)
+    expected = torch_reference(cache, ids)
+    for warps in (0, 4, 8):
+        assert_matches(cuda_dequant(cache, ids, warps=warps), expected, 512)
+        checked += 1
+
     # Positive-stride ids; current-stream ordering; preallocated output; graph.
     cache = make_cache(64, 512, 64)
     ids = torch.arange(128, dtype=torch.int64, device="cuda")[::2] % 64

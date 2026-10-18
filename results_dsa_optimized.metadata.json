@@ -1,0 +1,35 @@
+{
+  "gpu": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+  "sm": "8.6",
+  "torch": "2.11.0+cu130",
+  "torch_cuda": "13.0",
+  "triton": "3.6.0",
+  "python": "3.13.5",
+  "upstream_path": "/home/dingli/桌面/GithubProjects/dequantize_kv_cache/upstream_sm86.py",
+  "upstream_sha256": "0cc8ea83b805a3ab7c830eccafc420459cd5feb1f0d990fc0afc8cadb03d986f",
+  "args": {
+    "pool": 200000,
+    "topk": 2048,
+    "chunks": [
+      0,
+      1,
+      128,
+      512,
+      1024,
+      2048,
+      4096,
+      8192
+    ],
+    "nope": 512,
+    "rope": 64,
+    "index_dtype": "int32",
+    "vec": 0,
+    "warps": 0,
+    "mode": "both",
+    "inner": 50,
+    "samples": 9,
+    "upstream_file": "/home/dingli/桌面/GithubProjects/dequantize_kv_cache/upstream_sm86.py",
+    "csv": "results_dsa_optimized.csv"
+  },
+  "index_pattern": "first topk ids uniform over [0, pool-L); last L ids = pool-L..pool-1"
+}
