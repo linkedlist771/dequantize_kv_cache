@@ -1,0 +1,10 @@
+PASS: AST parse (6 Python files)
+PASS: 254 finite E4M3 encodings are exactly representable in FP16
+PASS: address model (102 vector/layout cases, 22 row schedules)
+NOT CHECKED: CUDA compilation, GPU memory safety, numerical GPU parity, performance
+PASS: separate dimension-inference comparison against pinned upstream for widths 1..9999
+
+Environment: no torch/triton in either available Python runtime; no nvcc or nvidia-smi.
+CUDA build: NOT RUN
+GPU correctness/memcheck: NOT RUN
+CUDA vs Triton benchmark: NOT RUN

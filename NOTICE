@@ -1,0 +1,11 @@
+This package includes upstream_dsa.py from sgl-project/sglang.
+Copyright 2023-2024 SGLang Team.
+Licensed under the Apache License, Version 2.0; see LICENSE.
+
+Source commit: d4e3c163c95afe5f549116c9c73a6f0e6a4830a7
+Source path: python/sglang/kernels/ops/attention/dsa/dequant_k_cache.py
+The upstream source is included without functional modification.
+
+The CUDA implementation, wrapper, input helpers, validation and benchmark
+drivers were created for this task and are not an upstream SGLang release.
+The packed-layout contract and infer_dims behavior follow the cited source.

@@ -1,0 +1,30 @@
+{
+  "created_date": "2026-10-18",
+  "scope": "SGLang DSA dequantize_k_cache_paged, FP8 E4M3 + per-128 FP32 scales + optional BF16 RoPE",
+  "upstream_commit": "d4e3c163c95afe5f549116c9c73a6f0e6a4830a7",
+  "upstream_url": "https://github.com/sgl-project/sglang/blob/d4e3c163c95afe5f549116c9c73a6f0e6a4830a7/python/sglang/kernels/ops/attention/dsa/dequant_k_cache.py",
+  "upstream_sha256": "9410e820956e9a1e683d06723024aae244f0e5c5658c1aab282ee5b5d69676d5",
+  "cuda_compiled": false,
+  "gpu_correctness_validated": false,
+  "performance_measured": false,
+  "host_checks": [
+    "Python AST parse",
+    "254 finite E4M3 values exactly representable in FP16",
+    "102 vector/layout address models",
+    "22 token schedules",
+    "dimension inference matches upstream for widths 1..9999"
+  ],
+  "files_sha256": {
+    "LICENSE": "1495e1e757ef4d0925a2350563cf5754bb23c51701a8ec4fb3c5cdcbedae6747",
+    "NOTICE": "f26f838c4fd5fa38e7d87e6a51df93f32a2214e73a6050f470d7f3aaef67ac2c",
+    "README.md": "18c3a75705a154ba8b04c31be789ae2b489cc870ffbfaf4b7aa78fdc4ee7737d",
+    "VALIDATION.txt": "099fe17c964db6509bdc2ce740243da699d78a7099ef5ba5d2b9a08295c9d099",
+    "benchmark.py": "13d9cacfb8c5ddf9cc508448c283db4580804d2721d550888b319c29228541c7",
+    "check_host.py": "9b323f767ab5e4ced29084068c757d6cce9bfa3a472283a93d37a7b5ef5e958e",
+    "dequant_cuda.cu": "d9481e5ba3be18885426fef82e62d2bf00af1bd35a9231893b35d3d60e46f612",
+    "kv_dequant.py": "3a896c33040e4e9a0ddbd25cbfb8caee1db3260932306dea56db5215df7f909c",
+    "reference.py": "bf8ada17dc9430fa5bd551d157763d9fffaee9563dbb80105412d56a6f3e594b",
+    "upstream_dsa.py": "9410e820956e9a1e683d06723024aae244f0e5c5658c1aab282ee5b5d69676d5",
+    "validate.py": "5aa23724762ea998468404ea3078eb3a6729478eb04b6d76ba0e2928e827fa5b"
+  }
+}
